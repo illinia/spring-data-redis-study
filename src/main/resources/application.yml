@@ -1,0 +1,7 @@
+spring:
+  redis:
+    sentinel:
+      master: masterNodeName
+      nodes: host:port
+      username: username
+      password: password
