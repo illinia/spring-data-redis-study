@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.StringRedisConnection;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.*;
 
 import javax.annotation.Resource;
 import java.net.URL;
+import java.util.List;
 
 public class Example {
 //    @Autowired
@@ -40,5 +38,18 @@ public class Example {
                 return null;
             }
         });
+    }
+
+    public void transaction() {
+        List<Object> txResults = redisTemplate.execute(new SessionCallback<List<Object>>() {
+            @Override
+            public List<Object> execute(RedisOperations operations) throws DataAccessException {
+                operations.multi();
+                operations.opsForSet().add("Key", "value1");
+
+                return operations.exec();
+            }
+        });
+        System.out.println("Number of items added to set: " + txResults.get(0));
     }
 }

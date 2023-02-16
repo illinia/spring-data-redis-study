@@ -11,13 +11,16 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
-@Configuration
+//@Configuration
 public class AppConfig {
 
-    @Bean
-    public LettuceConnectionFactory redisConnectionFactory() {
-        return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", 6379));
+//    @Bean
+//    public LettuceConnectionFactory redisConnectionFactory() {
+//        return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", 6379));
+//    }
 
+//    @Bean
+//    public LettuceConnectionFactory redisConnectionFactory() {
 //        LettuceClientConfiguration clientConfiguration = LettuceClientConfiguration.builder()
 //                .readFrom(ReadFrom.REPLICA_PREFERRED)
 //                .build();
@@ -25,7 +28,7 @@ public class AppConfig {
 //        RedisStandaloneConfiguration serverConfig = new RedisStandaloneConfiguration("localhost", 6379);
 //
 //        return new LettuceConnectionFactory(serverConfig, clientConfiguration);
-    }
+//    }
 
 //    @Bean
 //    public RedisConnectionFactory lettuceConnectionFactory() {
@@ -43,10 +46,10 @@ public class AppConfig {
 //        return template;
 //    }
 
-    @Bean
-    StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        StringRedisTemplate template = new StringRedisTemplate();
-        template.setConnectionFactory(redisConnectionFactory);
-        return template;
-    }
+//    @Bean
+//    StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+//        StringRedisTemplate template = new StringRedisTemplate();
+//        template.setConnectionFactory(redisConnectionFactory);
+//        return template;
+//    }
 }
