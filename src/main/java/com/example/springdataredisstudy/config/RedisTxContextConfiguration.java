@@ -6,7 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -22,10 +25,15 @@ public class RedisTxContextConfiguration {
     public DataSource dataSource;
 
     @Bean
-    public StringRedisTemplate redisTemplate() {
-        StringRedisTemplate template = new StringRedisTemplate(redisConnectionFactory());
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate template = new RedisTemplate();
+        template.setConnectionFactory(redisConnectionFactory());
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setHashKeySerializer(new StringRedisSerializer());
+        template.setHashValueSerializer(new StringRedisSerializer());
+        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(String.class));
         // 현재 스레드에 대한 연결을 바인딩하여 트랜잭션에 참여하도록 구성한다.
-        template.setEnableTransactionSupport(true);
+//        template.setEnableTransactionSupport(true);
         return template;
     }
 
