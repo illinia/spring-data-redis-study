@@ -417,4 +417,4 @@ JSON 형식의 개체를 Jackson2JsonRedisSerializer 로 변환할 수 있다.
 
 ### 10.12 레디스 트랜잭션
 레디스는 multi, exec, discard 명령어를 통해 트랜잭션을 제공한다. RedisTemplate 에서 가능하다.
-하지만 RedisTemplate 은 트랜잭션에서 모든 연산을 같은 커넥션에서 보장하지 않는다.
+하지만 RedisTemplate 은 트랜잭션에서 모든 연산을 같은 커넥션에서 보장하지 않는다.# publish-test
